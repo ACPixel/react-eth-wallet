@@ -30,7 +30,7 @@ class Wallet extends Component {
   }
 
   sendTo(to, amount) {
-    var amount = e.utils.parseEther(amount.toString());
+    amount = e.utils.parseEther(amount.toString());
     var sendPromise = wallet.send(to, amount);
     sendPromise.then(transactionHash=>{
         console.log("Sent:", transactionHash);
@@ -95,6 +95,9 @@ class App extends Component {
     return (
       <div className="App">
         <Wallet />
+        <div className="disc">
+          Disclaimer: Use this at your own risk, everything is stored locally however the integrity of this data is unknown. You are fully responsible if you lose any funds stored in this wallet. On top of that, this wallet has not been fully tested, it was made for fun as a challenge to myself to see if i could make a functioning walled in less than an hour and a half. I did this all in 1 hour 28 minutes and 40 seconds.
+        </div>
       </div>
     );
   }
