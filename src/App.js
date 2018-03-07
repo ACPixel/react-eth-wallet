@@ -30,11 +30,23 @@ class Wallet extends Component {
   }
 
   sendTo(to, amount) {
+    wallet.provider.getGasPrice().then(function(gasPrice) {
+        // gasPrice is a BigNumber; convert it to a decimal string
+        let gasPriceString = e.utils.formatEther(gasPrice)
+        console.log("Current gas price: " + gasPriceString);
+    });
     amount = e.utils.parseEther(amount.toString());
-    var sendPromise = wallet.send(to, amount);
+    var options = {
+      gasLimit: 21000,
+      gasPrice: e.utils.bigNumberify("20000000000")
+    };
+    var sendPromise = wallet.send(to, amount, options);
     sendPromise.then(transactionHash=>{
         console.log("Sent:", transactionHash);
         this.updateBalance();
+    })
+    .catch(er=>{
+      console.info(er);
     });
   }
 
@@ -53,13 +65,17 @@ class Wallet extends Component {
       privateKey: wallet.privateKey
     });
   }
-  handleForm(e) {
-    e.preventDefault();
+
+  handleForm(t) {
+    t.preventDefault();
      let to = this.refs.to.value;
      let amount = this.refs.amount.value;
-     this.sendTo(to, amount)
-     this.refs.to.value = '';
-     this.refs.amount.value = '';
+     if (!isNaN(Number(amount))) {
+      this.sendTo(to, Number(amount))
+      this.refs.to.value = '';
+      this.refs.amount.value = '';
+     }
+     
    }
   render() {
     return (
@@ -81,7 +97,7 @@ class Wallet extends Component {
         <div className="send">
           <form onSubmit={this.handleForm.bind(this)}>
               <input type="text" ref="to" placeholder="Type send address"/>
-              <input type="number" ref="amount" placeholder="Type amount"/>
+              <input type="text" ref="amount" placeholder="Type amount"/>
               <button type="submit">Send</button>
           </form>
         </div>
