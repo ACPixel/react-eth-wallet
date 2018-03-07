@@ -90,7 +90,7 @@ class Wallet extends Component {
         <div className="info">
             <img src="https://raw.githubusercontent.com/cjdowner/cryptocurrency-icons/d31bf7c3/128/color/eth.png" alt="eth"></img>
             <div className="qr">
-              <QRCode value={this.state.address} bgColor="#51a1c0" size="100" fgColor="#444" />
+              <QRCode value={this.state.address} bgColor="#51a1c0" size={200} fgColor="#444" />
             </div>
             <div className="bal">
                 <div className="total">
@@ -117,6 +117,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <div className="title">
+          React Etherium Wallet ~ ACPixel.
+        </div>
         <Wallet />
         <div className="disc">
           Disclaimer: Use this at your own risk, everything is stored locally however the integrity of this data is unknown. You are fully responsible if you lose any funds stored in this wallet. On top of that, this wallet has not been fully tested, it was made for fun as a challenge to myself to see if i could make a functioning walled in less than an hour and a half. I did this all in 1 hour 28 minutes and 40 seconds.
