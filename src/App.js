@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import * as e from 'ethers';
+import QRCode from 'qrcode-react';
 
 var wallet
 
@@ -43,6 +44,9 @@ class Wallet extends Component {
     var sendPromise = wallet.send(to, amount, options);
     sendPromise.then(transactionHash=>{
         console.log("Sent:", transactionHash);
+        this.setState({
+          bal: this.state.bal-Number(transactionHash.toString())
+        })
         this.updateBalance();
     })
     .catch(er=>{
@@ -85,6 +89,9 @@ class Wallet extends Component {
         </div>
         <div className="info">
             <img src="https://raw.githubusercontent.com/cjdowner/cryptocurrency-icons/d31bf7c3/128/color/eth.png" alt="eth"></img>
+            <div className="qr">
+              <QRCode value={this.state.address} bgColor="#51a1c0" size="100" fgColor="#444" />
+            </div>
             <div className="bal">
                 <div className="total">
                   ${(this.state.bal*this.state.price).toFixed(2)}

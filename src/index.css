@@ -42,7 +42,11 @@ body {
 .bal {
   color: white;
   font-size: 1.5em;
-  padding: 4rem 0;
+  padding: 2rem 0;
+}
+
+.qr {
+  padding: 1rem 0 0 0;
 }
 
 .total {
@@ -58,7 +62,7 @@ body {
 .info {
   height: 500px;
   padding: 1rem 0;
-  background: rgb(81, 161, 192);
+  background: #51a1c0;
 }
 
 .send {
